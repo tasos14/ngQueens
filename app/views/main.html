@@ -1,0 +1,25 @@
+<div id="content" ng-controller='MainController as ctrl'>
+  <div id="heading" class="row">
+    <h1 class="title">ngQueens</h1>
+  </div>
+
+  <div id="instructions" class="row">
+    Place all the queens on the board so that <br>
+      no two queens threaten each other !
+      <button class="restart-button">New game</button>
+
+      <div class="btn-group">
+        <button type="button" class="dropdown-toggle grid-button" data-toggle="dropdown">
+          Grid
+        </button>
+        <ul class="dropdown-menu">
+          <li><a ng-repeat='item in ctrl.gridSizes' ng-click="ctrl.createBoard(item.value)">{{ item.name }}</a></li>
+        </ul>
+      </div>
+  </div>
+
+  <div id="board-container">
+
+  </div>
+
+</div>
