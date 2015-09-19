@@ -30,6 +30,14 @@
        value: 8
      }];
 
+     this.getNumber = function(num) {
+          var arr = [];
+          for (var i = 1; i <= num; i++) {
+            arr.push(i);
+          }
+          return arr;
+      };
+
      this.createBoard = function(gridSize) {
        var count = 0;
        var board = angular.element('#board-container');
@@ -65,5 +73,5 @@
 
 
 
-     this.createBoard(this.defaultGrid);
+    //  this.createBoard(this.defaultGrid);
    });

@@ -158,88 +158,91 @@ h1.title {
 
 #board-container {
   position: relative;
-  width: 400px;
-  height: 500px;
+  width: 420px;
+  height: 520px;
   margin: 40px auto;
 }
 
-.tile-4{
-  width: 100px;
-  height: 100px;
-  float: left;
-}
-
-.tile-5{
-  width: 80px;
-  height: 80px;
-  float: left;
-}
-
-.tile-6{
-  width: 66px;
-  height: 66px;
-  float: left;
-}
-
-.tile-7{
-  width: 57px;
-  height: 57px;
-  float: left;
-}
-
-.tile-8 {
-  width: 50px;
-  height: 50px;
-  float: left;
-}
-
-.black {
-  /*background-color: #8F7A66;*/
-  background-color: #C0A58B;
-  color: black;
-  cursor: pointer;
-}
-
-.white {
+board > div:nth-of-type(odd){
   background-color: #D6E4D6;
   color: white;
   cursor: pointer;
 }
 
+board > div:nth-of-type(even){
+  background-color: #C0A58B;
+  color: black;
+  cursor: pointer;
+}
+
+.fll{
+  float: left;
+}
+
+.flr{
+  float: right;
+}
+
+.tile-4{
+  width: 105px;
+  height: 105px;
+}
+
+.tile-5{
+  width: 84px;
+  height: 84px;
+}
+
+.tile-6{
+  width: 70px;
+  height: 70px;
+}
+
+.tile-7{
+  width: 60px;
+  height: 60px;
+}
+
+.tile-8 {
+  width: 52.5px;
+  height: 52.5px;
+}
+
 .queen-4{
-  width: 90px;
+  width: 95px;
   height: 90px;
   float: left;
   margin: 0 5px;
 }
 
 .queen-5{
-  width: 70px;
+  width: 74px;
   height: 70px;
   float: left;
   margin: 0 5px;
 }
 
 .queen-6{
-  width: 56px;
+  width: 60px;
   height: 56px;
   float: left;
   margin: 0 5px;
 }
 
 .queen-7{
-  width: 47px;
+  width: 50px;
   height: 47px;
   float: left;
   margin: 0 5px;
 }
 
 .queen-8{
-  width: 40px;
+  width: 42px;
   height: 40px;
   float: left;
   margin: 0 5px;
 }
+
 
 .smoothfade {
   -webkit-transition: box-shadow 0.25s ease-out;
