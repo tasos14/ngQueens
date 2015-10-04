@@ -8,12 +8,13 @@
  * Controller of the ngQueensApp
  */
  angular.module('ngQueensApp')
-   .controller('MainController', function () {
+   .controller('MainController', function ($scope) {
 
-     this.defaultGrid = 4;
-     this.currentGrid = 4;
+     var vm = this;
 
-     this.gridSizes = [{
+     vm.currentGrid = 4;
+
+     vm.gridSizes = [{
        name: "4x4",
        value: 4
      }, {
@@ -30,7 +31,7 @@
        value: 8
      }];
 
-     this.getNumber = function(num) {
+     vm.getNumber = function(num) {
           var arr = [];
           for (var i = 1; i <= num; i++) {
             arr.push(i);
@@ -38,40 +39,16 @@
           return arr;
       };
 
-     this.createBoard = function(gridSize) {
-       var count = 0;
-       var board = angular.element('#board-container');
+      vm.changeGridSize = function(gridSize){
+        vm.currentGrid = gridSize;
+      };
 
-       board.children().remove();
-       this.currentGrid = gridSize;
+      $scope.$watch(
+        function watchCurrentGrid(scope){
+          return vm.currentGrid;
+        },
+        function handleGridChange(newValue, oldValue){
 
-       for(var i=0; i<gridSize; i++){
-         for (var j=0; j < gridSize; j++) {
-
-           if( ((i%2 == 0) && (j%2 !=0)) || ((i%2 !=0) && (j%2 == 0)) ){
-             board.append('<div class="tile-'+gridSize+' black smoothfade" square-pos="'+i+j+'"></div>');
-           }
-           else {
-             board.append('<div class="tile-'+gridSize+' white smoothfade" square-pos="'+i+j+'"></div>');
-           }
-           count++;
-         }
-       }
-
-       for (var i = 0; i < gridSize; i++) {
-         board.append('<img src="images/queen.png" class="queen-'+gridSize+'" square-pos="Q'+i+'"/>');
-       }
-     };
-
-     this.moveQueen = function(){
-
-     };
-
-
-
-
-
-
-
-    //  this.createBoard(this.defaultGrid);
+        }
+      );
    });
