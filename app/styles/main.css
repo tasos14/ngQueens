@@ -163,49 +163,58 @@ h1.title {
   margin: 40px auto;
 }
 
-board > div:nth-of-type(odd){
+board .board-row:nth-of-type(odd) > div:nth-child(odd){
   background-color: #D6E4D6;
   color: white;
   cursor: pointer;
 }
 
-board > div:nth-of-type(even){
+board .board-row:nth-of-type(odd) > div:nth-child(even){
   background-color: #C0A58B;
   color: black;
   cursor: pointer;
 }
 
-.fll{
-  float: left;
+board .board-row:nth-of-type(even) > div:nth-child(even){
+  background-color: #D6E4D6;
+  color: white;
+  cursor: pointer;
 }
 
-.flr{
-  float: right;
+board .board-row:nth-of-type(even) > div:nth-child(odd){
+  background-color: #C0A58B;
+  color: black;
+  cursor: pointer;
 }
 
 .tile-4{
   width: 105px;
   height: 105px;
+  float: left;
 }
 
 .tile-5{
   width: 84px;
   height: 84px;
+  float: left;
 }
 
 .tile-6{
   width: 70px;
   height: 70px;
+  float: left;
 }
 
 .tile-7{
   width: 60px;
   height: 60px;
+  float: left;
 }
 
 .tile-8 {
   width: 52.5px;
   height: 52.5px;
+  float: left;
 }
 
 .queen-4{

@@ -1,8 +1,8 @@
-<div ng-repeat="i in ctrl.getNumber(ctrl.currentGrid*ctrl.currentGrid) track by i"
-      id='{{i}}' class="tile-{{ctrl.currentGrid}}"
-      ng-class="{'flr':(i%(ctrl.currentGrid*2)>ctrl.currentGrid),
+<div ng-repeat="i in ctrl.getNumber(ctrl.currentGrid) track by i" class='board-row'>
+  <div ng-repeat="j in ctrl.getNumber(ctrl.currentGrid) track by j"
+    id="{{i}}{{j}}" class="tile-{{ctrl.currentGrid}}">
 
-      'fll':(i%(ctrl.currentGrid*2)<=ctrl.currentGrid)}">
+  </div>
 </div>
 
 <img ng-repeat='i in ctrl.getNumber(ctrl.currentGrid) track by i' src="images/queen.png" id='Q{{i}}' class="queen-{{ctrl.currentGrid}}" />
