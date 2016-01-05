@@ -252,6 +252,9 @@ board .board-row:nth-of-type(even) > div:nth-child(odd){
   margin: 0 5px;
 }
 
+.fade{
+  filter: blur(5px);
+}
 
 .smoothfade {
   -webkit-transition: box-shadow 0.25s ease-out;

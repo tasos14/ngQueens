@@ -14,6 +14,9 @@
 
      vm.currentGrid = 4;
 
+     // a table to track where the user clicked
+     vm.cols = [0,0,0,0];
+
      vm.gridSizes = [{
        name: "4x4",
        value: 4
@@ -41,6 +44,12 @@
 
       vm.changeGridSize = function(gridSize){
         vm.currentGrid = gridSize;
+
+        // reset the table when grid changes
+        for(var i=0;i<vm.currentGrid;i++){
+          vm.cols[i] = 0;
+          angular.element('#Q'+i).removeClass("fade");
+        }
       };
 
       $scope.$watch(
@@ -51,4 +60,28 @@
 
         }
       );
+
+      vm.moveQueen = function(event){
+        // get the clicked tile's id
+        var id   = event.target.id;
+
+        var line = id.charAt(0);
+        var col  = Number(id.charAt(1));
+
+        // when you click a tile for the first time on a column
+        if(vm.cols[col-1] == 0){
+          angular.element('#Q'+col).addClass("fade");
+          angular.element('#'+id).append('<img src="images/queen.png" '+
+                                    'class="queen-'+vm.currentGrid+'" id="Q'+col+'" />');
+          vm.cols[col-1] = line;
+        }
+        // when you have already clicked a tile on that column
+        else if(vm.cols[col-1] != 0) {
+          angular.element('#'+vm.cols[col-1]+col).empty();
+          angular.element('#'+id).append('<img src="images/queen.png" '+
+                                    'class="queen-'+vm.currentGrid+'" />');
+          vm.cols[col-1] = line;
+        }
+      };
+
    });

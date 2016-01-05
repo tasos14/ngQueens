@@ -1,6 +1,6 @@
 <div ng-repeat="i in ctrl.getNumber(ctrl.currentGrid) track by i" class='board-row'>
   <div ng-repeat="j in ctrl.getNumber(ctrl.currentGrid) track by j"
-    id="{{i}}{{j}}" class="tile-{{ctrl.currentGrid}}">
+    id="{{i}}{{j}}" class="tile-{{ctrl.currentGrid}}" ng-click="ctrl.moveQueen($event)">
 
   </div>
 </div>
