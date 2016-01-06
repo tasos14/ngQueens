@@ -44,9 +44,12 @@
 
       vm.changeGridSize = function(gridSize){
         vm.currentGrid = gridSize;
-
+        var i,j;
         // reset the table when grid changes
-        for(var i=0;i<vm.currentGrid;i++){
+        for(i=0;i<vm.currentGrid;i++){
+          for(j=0;j<vm.currentGrid;j++){
+            angular.element('#'+i+j).empty();
+          }
           vm.cols[i] = 0;
           angular.element('#Q'+i).removeClass("fade");
         }
@@ -65,23 +68,36 @@
         // get the clicked tile's id
         var id   = event.target.id;
 
-        var line = id.charAt(0);
-        var col  = Number(id.charAt(1));
+        if(id.length == 2){
+          var line = id.charAt(0);
+          var col  = Number(id.charAt(1));
+        }
+        else{
+          var line = id.charAt(1);
+          var col  = Number(id.charAt(2));
+        }
 
         // when you click a tile for the first time on a column
         if(vm.cols[col-1] == 0){
           angular.element('#Q'+col).addClass("fade");
           angular.element('#'+id).append('<img src="images/queen.png" '+
-                                    'class="queen-'+vm.currentGrid+'" id="Q'+col+'" />');
+                                    'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
           vm.cols[col-1] = line;
+        }
+        // when you click the tile whith a queen on it
+        else if(vm.cols[col-1] == line) {
+          angular.element('#'+vm.cols[col-1]+col).empty();
+          angular.element('#Q'+col).removeClass('fade');
+          vm.cols[col-1] = 0;
         }
         // when you have already clicked a tile on that column
-        else if(vm.cols[col-1] != 0) {
+        else {
           angular.element('#'+vm.cols[col-1]+col).empty();
           angular.element('#'+id).append('<img src="images/queen.png" '+
-                                    'class="queen-'+vm.currentGrid+'" />');
+                                    'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
           vm.cols[col-1] = line;
         }
+
       };
 
    });
