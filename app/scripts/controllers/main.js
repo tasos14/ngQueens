@@ -44,6 +44,10 @@
 
       vm.changeGridSize = function(gridSize){
         vm.currentGrid = gridSize;
+        vm.newGame();
+      };
+
+      vm.newGame = function(){
         var i,j;
         // reset the table when grid changes
         for(i=1;i<vm.currentGrid+1;i++){
@@ -53,8 +57,8 @@
           vm.cols[i] = 0;
           angular.element('#Q'+i).removeClass("fade");
         }
-      };
 
+      };
       $scope.$watch(
         function watchCurrentGrid(scope){
           return vm.currentGrid;
