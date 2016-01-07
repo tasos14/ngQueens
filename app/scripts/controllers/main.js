@@ -46,8 +46,8 @@
         vm.currentGrid = gridSize;
         var i,j;
         // reset the table when grid changes
-        for(i=0;i<vm.currentGrid;i++){
-          for(j=0;j<vm.currentGrid;j++){
+        for(i=1;i<vm.currentGrid+1;i++){
+          for(j=1;j<vm.currentGrid+1;j++){
             angular.element('#'+i+j).empty();
           }
           vm.cols[i] = 0;
