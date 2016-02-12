@@ -51,10 +51,9 @@
         var i,j;
         // reset the table when grid changes
         for(i=1;i<vm.currentGrid+1;i++){
-          for(j=1;j<vm.currentGrid+1;j++){
-            angular.element('#'+i+j).empty();
-          }
-          vm.cols[i] = 0;
+          row = vm.cols[i-1];
+          angular.element('#'+row+i).empty();
+          vm.cols[i-1] = 0;
           angular.element('#Q'+i).removeClass("fade");
         }
 

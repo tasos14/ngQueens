@@ -253,18 +253,10 @@ board .board-row:nth-of-type(even) > div:nth-child(odd){
 }
 
 .fade{
-  filter: blur(5px);
+  /*filter: blur(5px);*/
+  filter: opacity(30%);
 }
 
-.smoothfade {
-  -webkit-transition: box-shadow 0.25s ease-out;
-  -moz-transition: box-shadow 0.25s ease-out;
-  -ms-transition: box-shadow 0.25s ease-out;
-  -o-transition: box-shadow 0.25s ease-out;
-  transition: box-shadow 0.25s ease-out;
-  -webkit-transition: background-color 0.25s ease-in time;
-  -moz-transition: background-color 0.25s ease-in time;
-  -ms-transition: background-color 0.25s ease-in time;
-  -o-transition: background-color 0.25s ease-in time;
-  transition: background-color 0.25s ease-in time;
+.red{
+  background-color: #ff704d;
 }
