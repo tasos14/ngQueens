@@ -153,9 +153,8 @@
           }
           // remove the diagonal
           for(j=1; j < vm.currentGrid+1; j++){
-            if((j == row-absDestance || j== row+absDestance) ){
-              angular.element('#'+j+i).removeClass('red');
-            }
+            angular.element('#'+j+i).removeClass('red');
+
           }
         }
 
