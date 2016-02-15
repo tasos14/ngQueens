@@ -187,6 +187,11 @@ board .board-row:nth-of-type(even) > div:nth-child(odd){
   cursor: pointer;
 }
 
+.red{
+
+  filter: saturate(50%) brightness(63%);
+}
+
 .tile-4{
   width: 105px;
   height: 105px;
