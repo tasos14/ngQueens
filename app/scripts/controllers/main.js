@@ -106,15 +106,15 @@
           angular.element('#'+vm.cols[col-1]+col).empty();
           angular.element('#Q'+col).removeClass('fade');
           vm.cols[col-1] = 0;
-          vm.removeRedBlocks(Number(row),col);
+          vm.removeRedBlocks(row,col,true);
         }
         // when you have already clicked a tile on that column
         else {
           angular.element('#'+vm.cols[col-1]+col).empty();
           angular.element('#'+id).append('<img src="images/queen.png" '+
                                     'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
-          vm.drawRedBlocks(Number(row),col);
-          vm.removeRedBlocks(vm.cols[col-1],col);
+          vm.removeRedBlocks(vm.cols[col-1],col,false);
+          vm.drawRedBlocks(row,col);
           vm.cols[col-1] = row;
         }
       };
@@ -140,7 +140,7 @@
         angular.element('#'+row+col).removeClass('red');
       };
 
-      vm.removeRedBlocks = function(row,col){
+      vm.removeRedBlocks = function(row,col,check){
         var i,j;
         var absDestance;
 
@@ -158,9 +158,11 @@
           }
         }
 
-        for (var i = 0; i < vm.currentGrid; i++) {
-          if(vm.cols[i] != 0){
-            vm.drawRedBlocks(vm.cols[i],i+1);
+        if(check == true){
+          for (var i = 0; i < vm.currentGrid; i++) {
+            if(vm.cols[i] != 0){
+              vm.drawRedBlocks(vm.cols[i],i+1);
+            }
           }
         }
 
