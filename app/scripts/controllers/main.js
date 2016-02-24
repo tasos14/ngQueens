@@ -15,7 +15,7 @@
      vm.currentGrid = 4;
 
      // a table to track where the user clicked
-     vm.cols = [0,0,0,0];
+     vm.cols = new Array(vm.currentGrid);
 
      vm.gridSizes = [{
        name: "4x4",
@@ -35,20 +35,25 @@
      }];
 
      vm.getNumber = function(num) {
-          var arr = [];
-          for (var i = 1; i <= num; i++) {
-            arr.push(i);
-          }
-          return arr;
+        var arr = [];
+        for (var i = 1; i <= num; i++) {
+          arr.push(i);
+        }
+        return arr;
       };
 
       vm.changeGridSize = function(gridSize){
         vm.currentGrid = gridSize;
+        console.log(vm.cols);
         vm.newGame();
+        localStorage.setItem('gridSize',gridSize);
       };
 
       vm.newGame = function(){
         var i,j;
+
+        vm.cols = new Array(vm.currentGrid);
+
         // reset the table when grid changes
         for(i=1;i<vm.currentGrid+1;i++){
           for(j=1;j<vm.currentGrid+1;j++){
@@ -61,6 +66,7 @@
           vm.cols[i-1] = 0;
           angular.element('#Q'+i).removeClass("fade");
         }
+
         // for(i=1;i<vm.currentGrid+1;i++){
         //   row = vm.cols[i-1];
         //   angular.element('#'+row+i).empty();
@@ -100,6 +106,9 @@
                                     'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
           vm.cols[col-1] = row;
           vm.drawRedBlocks(row,col);
+          //localStorage.removeItem('cols');
+          //localStorage.setItem('cols',vm.cols);
+          console.log(vm.cols);
         }
         // when you click the tile whith a queen on it
         else if(vm.cols[col-1] == row) {
@@ -107,6 +116,9 @@
           angular.element('#Q'+col).removeClass('fade');
           vm.cols[col-1] = 0;
           vm.removeRedBlocks(row,col);
+          //localStorage.removeItem('cols');
+          //localStorage.setItem('cols',vm.cols);
+          console.log(vm.cols);
         }
         // when you have already clicked a tile on that column
         else {
@@ -116,6 +128,9 @@
           var prev_row =vm.cols[col-1];
           vm.cols[col-1] = row;
           vm.removeRedBlocks(prev_row,col);
+          //localStorage.removeItem('cols');
+          //localStorage.setItem('cols',vm.cols);
+          console.log(vm.cols);
         }
       };
 
@@ -164,7 +179,21 @@
             vm.drawRedBlocks(vm.cols[i],i+1);
           }
         }
-
-
       };
+
+      vm.onload = function(){
+        //var cols = localStorage.getItem('cols').split();
+        var grid = localStorage.getItem('gridSize');
+        var i,row,col;
+
+        if(grid != null){
+          vm.changeGridSize(grid);
+
+        }
+      };
+
+      console.log(vm.cols);
+      angular.element(document).ready(vm.onload);
+
+
    });
