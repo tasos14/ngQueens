@@ -15,7 +15,10 @@
      vm.currentGrid = 4;
 
      // a table to track where the user clicked
-     vm.cols = new Array(vm.currentGrid);
+     // each element represents a column
+     // example: vm.cols[1] = 3 -> there is a queen
+     // in the third row of the first column
+     vm.cols = [0,0,0,0];
 
      vm.gridSizes = [{
        name: "4x4",
@@ -34,6 +37,7 @@
        value: 8
      }];
 
+     // helper function used by the board.html view to draw the board
      vm.getNumber = function(num) {
         var arr = [];
         for (var i = 1; i <= num; i++) {
@@ -42,17 +46,29 @@
         return arr;
       };
 
+      // changes gridSize, resets the board
+      // initializes vm.cols,
+      // localStorages gridSize
       vm.changeGridSize = function(gridSize){
+        var i;
         vm.currentGrid = gridSize;
+
+        vm.cols = new Array(vm.currentGrid);
+
+        for(i=0;i<vm.cols.length;i++){
+          vm.cols[i] = 0;
+        }
+
         console.log(vm.cols);
+
         vm.newGame();
         localStorage.setItem('gridSize',gridSize);
       };
 
+      // resets board, vm.cols
+      // localStorages vm.cols
       vm.newGame = function(){
         var i,j;
-
-        vm.cols = new Array(vm.currentGrid);
 
         // reset the table when grid changes
         for(i=1;i<vm.currentGrid+1;i++){
@@ -67,6 +83,8 @@
           angular.element('#Q'+i).removeClass("fade");
         }
 
+        localStorage.setItem('cols',vm.cols);
+
         // for(i=1;i<vm.currentGrid+1;i++){
         //   row = vm.cols[i-1];
         //   angular.element('#'+row+i).empty();
@@ -75,6 +93,8 @@
         // }
 
       };
+
+      // watch vm.currentGrid
       $scope.$watch(
         function watchCurrentGrid(scope){
           return vm.currentGrid;
@@ -83,6 +103,7 @@
 
         }
       );
+
 
       vm.moveQueen = function(event){
         // get the clicked tile's id
@@ -106,8 +127,7 @@
                                     'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
           vm.cols[col-1] = row;
           vm.drawRedBlocks(row,col);
-          //localStorage.removeItem('cols');
-          //localStorage.setItem('cols',vm.cols);
+          localStorage.setItem('cols',vm.cols);
           console.log(vm.cols);
         }
         // when you click the tile whith a queen on it
@@ -116,8 +136,7 @@
           angular.element('#Q'+col).removeClass('fade');
           vm.cols[col-1] = 0;
           vm.removeRedBlocks(row,col);
-          //localStorage.removeItem('cols');
-          //localStorage.setItem('cols',vm.cols);
+          localStorage.setItem('cols',vm.cols);
           console.log(vm.cols);
         }
         // when you have already clicked a tile on that column
@@ -128,8 +147,7 @@
           var prev_row =vm.cols[col-1];
           vm.cols[col-1] = row;
           vm.removeRedBlocks(prev_row,col);
-          //localStorage.removeItem('cols');
-          //localStorage.setItem('cols',vm.cols);
+          localStorage.setItem('cols',vm.cols);
           console.log(vm.cols);
         }
       };
@@ -181,19 +199,41 @@
         }
       };
 
+      // get localStorage grid and cols if exist.
+      // update vm.currentGrid and vm.cols
+      // draw the queens on the board
       vm.onload = function(){
-        //var cols = localStorage.getItem('cols').split();
-        var grid = localStorage.getItem('gridSize');
-        var i,row,col;
+        var grid = Number(localStorage.getItem('gridSize'));
+        var cols = localStorage.getItem('cols').split(",",grid);
+        var i,row,col,id;
 
         if(grid != null){
-          vm.changeGridSize(grid);
+          vm.currentGrid = grid;
+        }
 
+        if(cols != null){
+          vm.cols = new Array(grid);
+          for(i=0;i<vm.cols.length;i++){
+            vm.cols[i] = Number(cols[i]);
+            // if not 0 draw the queen
+            if(vm.cols[i] != 0){
+              row = vm.cols[i]
+              col = i+1;
+              id  = String(row)+String(col);
+
+              // angular.element('#Q'+col).addClass("fade");
+              // angular.element('#'+id).append('<img src="images/queen.png" '+
+              //                           'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
+              vm.drawRedBlocks(row,col);
+              console.log(row+":"+col+'= '+id);
+            }
+
+          }
         }
       };
 
-      console.log(vm.cols);
-      angular.element(document).ready(vm.onload);
+      vm.onload();
+      // angular.element(document).ready(vm.onload);
 
 
    });
