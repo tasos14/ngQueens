@@ -14,6 +14,8 @@
 
      vm.currentGrid = 4;
 
+     vm.moves = 0;
+
      // a table to track where the user clicked
      // each element represents a column
      // example: vm.cols[1] = 3 -> there is a queen
@@ -59,8 +61,6 @@
           vm.cols[i] = 0;
         }
 
-        console.log(vm.cols);
-
         vm.newGame();
         localStorage.setItem('gridSize',gridSize);
       };
@@ -83,6 +83,8 @@
           angular.element('#Q'+i).removeClass("fade");
         }
 
+        vm.moves = 0;
+        localStorage.setItem('moves',vm.moves);
         localStorage.setItem('cols',vm.cols);
 
         // for(i=1;i<vm.currentGrid+1;i++){
@@ -127,8 +129,9 @@
                                     'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
           vm.cols[col-1] = row;
           vm.drawRedBlocks(row,col);
+          vm.moves++;
+          localStorage.setItem('moves',vm.moves);
           localStorage.setItem('cols',vm.cols);
-          console.log(vm.cols);
         }
         // when you click the tile whith a queen on it
         else if(vm.cols[col-1] == row) {
@@ -136,8 +139,9 @@
           angular.element('#Q'+col).removeClass('fade');
           vm.cols[col-1] = 0;
           vm.removeRedBlocks(row,col);
+          vm.moves++;
+          localStorage.setItem('moves',vm.moves);
           localStorage.setItem('cols',vm.cols);
-          console.log(vm.cols);
         }
         // when you have already clicked a tile on that column
         else {
@@ -147,8 +151,9 @@
           var prev_row =vm.cols[col-1];
           vm.cols[col-1] = row;
           vm.removeRedBlocks(prev_row,col);
+          vm.moves++;
+          localStorage.setItem('moves',vm.moves);
           localStorage.setItem('cols',vm.cols);
-          console.log(vm.cols);
         }
       };
 
@@ -205,10 +210,15 @@
       vm.onload = function(){
         var grid = Number(localStorage.getItem('gridSize'));
         var cols = localStorage.getItem('cols').split(",",grid);
+        var moves = Number(localStorage.getItem('moves'));
         var i,row,col,id;
 
         if(grid != null){
           vm.currentGrid = grid;
+        }
+
+        if(moves != null){
+          vm.moves = moves;
         }
 
         if(cols != null){
@@ -221,19 +231,18 @@
               col = i+1;
               id  = String(row)+String(col);
 
-              // angular.element('#Q'+col).addClass("fade");
-              // angular.element('#'+id).append('<img src="images/queen.png" '+
-              //                           'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
+              angular.element('#Q'+col).addClass("fade");
+              angular.element('#'+id).append('<img src="images/queen.png" '+
+                                        'class="queen-'+vm.currentGrid+'" id="Q'+id+'" />');
               vm.drawRedBlocks(row,col);
-              console.log(row+":"+col+'= '+id);
             }
 
           }
         }
       };
 
-      vm.onload();
-      // angular.element(document).ready(vm.onload);
+      setTimeout(vm.onload, 200);
+      angular.element('.container').ready(vm.onload);
 
 
    });

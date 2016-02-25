@@ -91,6 +91,29 @@ html, body{
   margin-top: 1em;
 }
 
+.moves-container{
+  text-align: right;
+  float: right;
+}
+.moves{
+  min-height: 2.5em;
+  min-width: 5em;
+  position: relative;
+  display: inline-block;
+  background: #C0A58B;
+  padding: 15px 25px;
+  font-size: 25px;
+  height: 25px;
+  line-height: 47px;
+  font-weight: 700;
+  border-radius: 3px;
+  color: #fff;
+  margin-top: 8px;
+  text-align: center;
+  float: right;
+}
+
+
 h1.title {
 
   font-size: 70px;
