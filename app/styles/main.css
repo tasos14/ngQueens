@@ -101,7 +101,7 @@ html, body{
   position: relative;
   display: inline-block;
   background: #C0A58B;
-  padding: 15px 25px;
+  /*padding: 15px 25px; */
   font-size: 25px;
   height: 25px;
   line-height: 47px;
