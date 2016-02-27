@@ -87,6 +87,15 @@ html, body{
   }
 }
 
+@media screen and (min-width: 435px) and (min-height: 640px){
+  #board-container{
+    margin: 40px -8px !important;
+  }
+  .txt{
+    margin-top: -74px;
+  }
+}
+
 #heading {
   margin-top: 1em;
 }
