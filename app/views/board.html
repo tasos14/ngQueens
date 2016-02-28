@@ -1,8 +1,12 @@
 <div ng-repeat="i in ctrl.getNumber(ctrl.currentGrid) track by i" class='board-row'>
   <div ng-repeat="j in ctrl.getNumber(ctrl.currentGrid) track by j"
-    id="{{i}}{{j}}" class="tile-{{ctrl.currentGrid}}" ng-click="ctrl.moveQueen($event)">
-
+    id="{{i}}{{j}}" class="tile-{{ctrl.currentGrid}}" ng-click="ctrl.moveQueen($event)"
+    ng-class="{red: ctrl.cols[j-1] > 0, red: ctrl.rows[i-1] > 0}"
+    >
+    <img ng-if="ctrl.cols[j-1] == i" src="images/queen.png" class="queen-{{ctrl.currentGrid}}" id="Q{{i}}{{j}}" />
   </div>
 </div>
 
-<img ng-repeat='i in ctrl.getNumber(ctrl.currentGrid) track by i' src="images/queen.png" id='Q{{i}}' class="queen-{{ctrl.currentGrid}}" />
+<img ng-repeat='i in ctrl.getNumber(ctrl.currentGrid) track by i' src="images/queen.png" id='Q{{i}}'
+     class="queen-{{ctrl.currentGrid}}" ng-class="{fade: ctrl.cols[{{i-1}}] != 0}"
+  />
