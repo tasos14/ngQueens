@@ -208,20 +208,23 @@
       // update vm.currentGrid and vm.cols
       // draw the queens on the board
       vm.onload = function(){
-        var grid = Number(localStorage.getItem('gridSize'));
-        var cols = localStorage.getItem('cols').split(",",grid);
-        var moves = Number(localStorage.getItem('moves'));
+        var grid;
+        var cols;
+        var moves;
         var i,row,col,id;
 
         if(grid != null){
+          grid = Number(localStorage.getItem('gridSize'));
           vm.currentGrid = grid;
         }
 
         if(moves != null){
+          moves = Number(localStorage.getItem('moves'));
           vm.moves = moves;
         }
 
         if(cols != null){
+          cols = localStorage.getItem('cols').split(",",grid);
           vm.cols = new Array(grid);
           for(i=0;i<vm.cols.length;i++){
             vm.cols[i] = Number(cols[i]);
