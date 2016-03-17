@@ -81,6 +81,7 @@
 
         vm.moves = 0;
         localStorage.setItem('moves',vm.moves);
+        localStorage.setItem('gridSize',vm.currentGrid);
         localStorage.setItem('cols',vm.cols);
         localStorage.setItem('rows',vm.rows);
       };
@@ -202,7 +203,7 @@
 
 
 
-        if(grid != null && cols != null && rows != null && moves != null){
+        if(grid != 0 && cols != null && rows != null && moves != 0){
           vm.currentGrid = grid;
           //vm.changeGridSize(grid);
           vm.init_redBlocks(vm.currentGrid);
