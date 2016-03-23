@@ -170,6 +170,7 @@ h1.title {
 }
   .dropdown-menu li a{
     cursor: pointer;
+    text-decoration: none;
   }
 
 .grid-button{
