@@ -155,17 +155,18 @@ h1.title {
   border: none;
 }
 
-.btn-group{
+.dropdown{
   position: relative;
   display: block;
-  margin: -25px 0px;
+  float: right;
 }
 
 .dropdown-menu{
-  margin: 32px 524px 0px;
+  margin: 9px 4px 0px;
+  position: absolute;
+  display: none;
   min-width: 76px;
   background: #8F7A66;
-  /*color: #F9F6F2;*/
 }
   .dropdown-menu li a{
     cursor: pointer;
