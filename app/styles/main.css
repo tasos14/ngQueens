@@ -135,15 +135,20 @@ h1.title {
 #instructions{
   padding-top: 0.5em;
 }
-  #instructions .restart-button{
+  /*#instructions .restart-button{
     margin-top: -0.5em;
-  }
+  }*/
+
+.txt{
+
+}
 
 .restart-button {
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
   padding: 0 20px;
+  margin-top: -3.2em;
   text-decoration: none;
   color: #f9f6f2;
   height: 40px;
@@ -159,13 +164,15 @@ h1.title {
   position: relative;
   display: block;
   float: right;
+  margin-top: -2.7em;
+  margin-right: 6.8em;
 }
 
 .dropdown-menu{
-  margin: 9px 4px 0px;
+  margin: 9px 5px 0px;
   position: absolute;
   display: none;
-  min-width: 76px;
+  min-width: 74px;
   background: #8F7A66;
 }
   .dropdown-menu li a{
