@@ -5,7 +5,19 @@ version 0.12.1.
 
 ## Build & development
 
-Run `npm install`, `bower install` for building and `grunt serve` for preview.
+Server
+
+go to the pengines folder `cd pengines`
+
+and run `swipl run.pl` to start the server
+
+Client
+
+Run `npm install`
+
+then run `bower install` for building
+
+and `grunt serve` for preview.
 
 ## Testing
 
