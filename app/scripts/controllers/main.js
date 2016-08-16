@@ -8,21 +8,21 @@
  * Controller of the ngQueensApp
  */
  angular.module('ngQueensApp')
-   .controller('MainController', function ($scope) {
+   .controller('MainController', function () {
 
      var vm = this;
 
      vm.currentGrid = 4;
 
-     vm.moves;
+     vm.moves = 0;
 
      // a table to track where the user clicked
      // each element represents a column
      // example: vm.cols[1] = 3 -> there is a queen
      // in the third row of the first column
-     vm.cols;
-     vm.rows;
-     vm.redBlocks;
+     vm.cols = 0;
+     vm.rows = 0;
+     vm.redBlocks = 0;
 
      vm.gridSizes = [{
        name: "4x4",
@@ -41,6 +41,34 @@
        value: 8
      }];
 
+     vm.ask = function() {
+       var pengine = new Pengine({
+         server: "http://localhost:3030/",
+
+         application: 'apps/queens/queens',
+
+         ask: "queens(4,[2,4,X,3])",
+
+         oncreate: function() {
+           console.log("Pengine with id: " + this.id + "was successfully created.");
+         },
+
+         onsuccess: function() {
+           console.log(JSON.stringify(this.data));
+         },
+
+         onfailure: function() {
+           console.log("failed");
+         },
+
+         onerror: function() {
+           console.log("Error: " + this.data);
+         }
+
+       });
+     };
+
+
      // helper function used by the board.html view to draw the board
      vm.getNumber = function(num) {
         var arr = [];
@@ -54,7 +82,7 @@
       // initializes vm.cols,
       // localStorages gridSize
       vm.changeGridSize = function(gridSize){
-        var i;
+
         vm.currentGrid = gridSize;
 
         vm.newGame();
@@ -102,7 +130,7 @@
         var id   = event.target.id;
         var row,col;
 
-        if(id.length == 2){
+        if(id.length === 2){
           row = Number(id.charAt(0));
           col = Number(id.charAt(1));
         }
@@ -112,7 +140,7 @@
         }
 
         // when you click a tile for the first time on a column
-        if(vm.cols[col-1] == 0){
+        if(vm.cols[col-1] === 0){
           vm.cols[col-1] = row;
           vm.rows[row-1] = col;
           vm.moves++;
@@ -124,7 +152,7 @@
           localStorage.setItem('rows',vm.rows);
         }
         // when you click the tile whith a queen on it
-        else if(vm.cols[col-1] == row) {
+        else if(vm.cols[col-1] === row) {
           vm.cols[col-1] = 0;
           vm.rows[row-1] = 0;
           vm.removeRedBlocks(row,col);
@@ -159,7 +187,7 @@
           vm.redBlocks[vm.currentGrid*row+i] = 1;
           vm.redBlocks[vm.currentGrid*i+col] = 1;
           for(j=0;j<vm.currentGrid;j++){
-            if(j == row-absDist || j == row+absDist){
+            if(j === row-absDist || j === row+absDist){
               vm.redBlocks[vm.currentGrid*j+i] = 1;
             }
           }
@@ -174,7 +202,7 @@
         col--;
         for(i=0;i<vm.currentGrid;i++){
 
-          if(vm.cols[i] == 0){
+          if(vm.cols[i] === 0){
             vm.redBlocks[vm.currentGrid*row+i] = 0;
             vm.redBlocks[vm.currentGrid*i+col] = 0;
           }
@@ -185,7 +213,7 @@
         }
 
         for(i=0;i<vm.currentGrid;i++){
-          if(vm.cols[i] != 0){
+          if(vm.cols[i] !== 0){
             vm.drawRedBlocks(vm.cols[i],i+1);
           }
         }
@@ -196,14 +224,14 @@
       // draw the queens on the board
       vm.init = function(){
         var grid = Number(localStorage.getItem('gridSize'));
-        var cols = localStorage.getItem('cols') != null? localStorage.getItem('cols').split(",",grid) : null;
-        var rows = localStorage.getItem('rows') != null? localStorage.getItem('rows').split(",",grid) : null;
+        var cols = localStorage.getItem('cols') !== null? localStorage.getItem('cols').split(",",grid) : null;
+        var rows = localStorage.getItem('rows') !== null? localStorage.getItem('rows').split(",",grid) : null;
         var moves = Number(localStorage.getItem('moves'));
         var i,row,col,id;
 
 
 
-        if(grid != 0 && cols != null && rows != null && moves != 0){
+        if(grid !== 0 && cols !== null && rows !== null && moves !== 0){
           vm.currentGrid = grid;
           //vm.changeGridSize(grid);
           vm.init_redBlocks(vm.currentGrid);
@@ -215,8 +243,8 @@
             vm.cols[i] = Number(cols[i]);
 
             // if not 0 draw the queen
-            if(vm.cols[i] != 0){
-              row = vm.cols[i]
+            if(vm.cols[i] !== 0){
+              row = vm.cols[i];
               col = i+1;
               id  = String(row)+String(col);
               vm.drawRedBlocks(row,col);
@@ -239,4 +267,5 @@
       };
 
       vm.init();
+      $("#ask-btn").on("click", vm.ask());
    });

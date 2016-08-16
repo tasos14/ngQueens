@@ -3,5 +3,5 @@ angular.module('ngQueensApp')
     return{
       restrict: 'E',
       templateUrl: 'views/board.html'
-    }
+    };
   });
